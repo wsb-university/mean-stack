@@ -1,3 +1,5 @@
+const PORT = process.env.PORT || 3000;
+
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -44,4 +46,4 @@ app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, './client/dist/client/index.html'));
 });
 
-app.listen(3000);
+app.listen(PORT);
