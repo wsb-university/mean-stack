@@ -1,8 +1,10 @@
 <section class="main">
-  <div>
-    <h1>MEAN blog</h1>
-  </div>
-  <router-outlet></router-outlet>
-
+  <header>
+    <h1 routerLink="/">
+      <teximate text="MEAN blog" [enter]="enterAnimation"></teximate>
+    </h1>
+  </header>
   <nav><a routerLink="/">Home</a> | <a routerLink="/admin">Admin</a></nav>
+  <router-outlet></router-outlet>
+  <footer>&copy; Copyright WSB 2020</footer>
 </section>

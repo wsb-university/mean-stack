@@ -9,7 +9,5 @@
     <strong>{{ getPost()?.shortContent }}</strong>
   </p>
 
-  <p>
-    {{ getPost()?.longContent }}
-  </p>
+  <p [innerHtml]="getPost()?.longContent"></p>
 </section>
