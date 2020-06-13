@@ -1,1 +1,3 @@
 <p>Selected post id: {{ postId }}</p>
+
+<div *ngIf="postId !== null">{{ getPost()?.title }}</div>
