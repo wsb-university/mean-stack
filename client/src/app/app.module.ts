@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin/admin.component';
 import { AppComponent } from './app.component';
 import { PostComponent } from './post/post.component';
 import { PostsComponent } from './posts/posts.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   {
@@ -22,8 +24,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, PostsComponent, PostComponent, AdminComponent],
-  imports: [BrowserModule, RouterModule.forRoot(routes)],
+  declarations: [AppComponent, PostsComponent, PostComponent, AdminComponent, LoginComponent],
+  imports: [BrowserModule, RouterModule.forRoot(routes), FormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

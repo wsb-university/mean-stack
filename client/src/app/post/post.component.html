@@ -1,3 +1,15 @@
-<p>Selected post id: {{ postId }}</p>
+<a routerLink="/">< back to list</a>
 
-<div *ngIf="postId !== null">{{ getPost()?.title }}</div>
+<section *ngIf="postId !== null">
+  <div>
+    <h2>{{ getPost()?.title }}</h2>
+  </div>
+
+  <p class="grey">
+    <strong>{{ getPost()?.shortContent }}</strong>
+  </p>
+
+  <p>
+    {{ getPost()?.longContent }}
+  </p>
+</section>

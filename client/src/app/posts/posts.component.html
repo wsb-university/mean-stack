@@ -1,1 +1,12 @@
-<p>posts works!</p>
+<section *ngFor="let post of data">
+  <div>
+    <h3>
+      <a routerLink="/post/{{ post.id }}">{{ post.title }}</a>
+    </h3>
+  </div>
+  <div>
+    <strong>
+      {{ post.shortContent }}
+    </strong>
+  </div>
+</section>
