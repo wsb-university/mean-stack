@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { postData } from './../post';
+import { ApiService } from '../apiService';
 
 @Component({
   selector: 'app-posts',
@@ -9,8 +9,10 @@ import { postData } from './../post';
 export class PostsComponent implements OnInit {
   data = null;
 
-  constructor() {
-    this.data = postData;
+  constructor(apiService: ApiService) {
+    apiService.getPosts().then((data) => {
+      this.data = data;
+    });
   }
 
   ngOnInit(): void {}
