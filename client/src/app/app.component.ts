@@ -1,9 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { flipInX } from 'ng-animate';
 import { TextAnimation } from 'ngx-teximate';
-import { environment } from './../environments/environment';
-import { ApiStatusResponse } from './interfaces/ApiStatusResponse';
+import { ApiService } from './apiService';
 
 @Component({
   selector: 'app-root',
@@ -14,11 +12,8 @@ export class AppComponent {
   title = 'client';
   status = null;
 
-  constructor(httpClient: HttpClient) {
-    httpClient
-      .get(`${environment.apiUrl}/api/status`)
-      .toPromise()
-      .then((data: ApiStatusResponse) => (this.status = data.status));
+  constructor(apiService: ApiService) {
+    apiService.getStatus().then((data) => (this.status = data.status));
   }
 
   enterAnimation: TextAnimation = {

@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { TeximateModule } from 'ngx-teximate';
 import { AdminComponent } from './admin/admin.component';
+import { ApiService } from './apiService';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { PostComponent } from './post/post.component';
@@ -42,7 +43,7 @@ const routes: Routes = [
     TeximateModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
