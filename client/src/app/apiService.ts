@@ -31,4 +31,10 @@ export class ApiService {
       .post<Post>(`${environment.apiUrl}/api/posts`, doc)
       .toPromise();
   }
+
+  updatePost(doc: Post): Promise<number> {
+    return this.httpClient
+      .put<number>(`${environment.apiUrl}/api/posts/${doc._id}`, doc)
+      .toPromise();
+  }
 }

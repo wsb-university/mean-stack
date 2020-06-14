@@ -16,12 +16,16 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {}
 
   handleSave() {
-    const doc = {
+    const doc: any = {
       title: this.title,
       shortContent: this.shortContent,
       longContent: this.longContent,
     };
 
     this.apiService.createPost(doc).then(console.warn);
+
+    // post update mock
+    // doc._id = 'BlQdN8r9QezqhPl2';
+    // this.apiService.updatePost(doc).then(console.warn);
   }
 }

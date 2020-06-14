@@ -175,8 +175,11 @@ app.get('/api/posts/:id', async (req, res) => {
 });
 
 // update post
-app.put('/api/posts/:id', (req, res) => {
-  res.send('update a single post: ' + req.params.id);
+app.put('/api/posts/:id', async (req, res) => {
+  const doc = req.body;
+  const docId = req.params.id;
+  const result = await db.posts.update({ _id: docId }, doc);
+  res.json(result);
 });
 
 // delete post
