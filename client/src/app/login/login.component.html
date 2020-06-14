@@ -1,4 +1,4 @@
-<section class="admin">
+<section *ngIf="!accessToken; else logout" class="admin">
   <h3>Login:</h3>
   <div>
     <label>e-mail</label>
@@ -12,3 +12,7 @@
 
   <button (click)="handleLogin()">Login</button>
 </section>
+
+<ng-template #logout>
+  <button (click)="handleLogout()">Logout</button>
+</ng-template>

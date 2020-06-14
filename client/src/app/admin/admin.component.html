@@ -1,21 +1,34 @@
-<app-login *ngIf="!accessToken"></app-login>
+<app-login></app-login>
 
 <section *ngIf="accessToken" class="admin">
-  <h3>Add post:</h3>
   <div>
-    <label>Title</label>
-    <input [(ngModel)]="title" />
+    <h3>Add post:</h3>
+    <div>
+      <label>Title</label>
+      <input [(ngModel)]="title" />
+    </div>
+
+    <div>
+      <label>Short content</label>
+      <textarea [(ngModel)]="shortContent"></textarea>
+    </div>
+
+    <div>
+      <label>Long content</label>
+      <textarea [(ngModel)]="longContent"></textarea>
+    </div>
+
+    <button (click)="handleSave()">Save</button>
   </div>
 
-  <div>
-    <label>Short content</label>
-    <textarea [(ngModel)]="shortContent"></textarea>
-  </div>
+  <hr />
 
   <div>
-    <label>Long content</label>
-    <textarea [(ngModel)]="longContent"></textarea>
+    <h3>The list of available posts (click on post to delete):</h3>
+    <ul>
+      <li *ngFor="let post of posts" (click)="handleDelete(post._id)">
+        {{ post.title }}
+      </li>
+    </ul>
   </div>
-
-  <button (click)="handleSave()">Save</button>
 </section>

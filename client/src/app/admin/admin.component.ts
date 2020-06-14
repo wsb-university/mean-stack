@@ -1,4 +1,3 @@
-import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../apiService';
 
@@ -12,12 +11,15 @@ export class AdminComponent implements OnInit {
   shortContent = '';
   longContent = '';
   accessToken = null;
+  posts = [];
 
   constructor(private apiService: ApiService) {
     this.accessToken = localStorage.getItem('accessToken');
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.apiService.getPosts().then((posts) => (this.posts = posts));
+  }
 
   handleSave() {
     const doc: any = {
@@ -26,20 +28,16 @@ export class AdminComponent implements OnInit {
       longContent: this.longContent,
     };
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: `Basic ${this.accessToken}`,
-      }),
-    };
-
-    this.apiService.createPost(doc, httpOptions).then(console.warn);
+    this.apiService.createPost(doc).then(() => window.location.reload());
 
     // post update mock
     // doc._id = 'BlQdN8r9QezqhPl2';
     // this.apiService.updatePost(doc).then(console.warn);
+  }
 
-    // post delete mock
-    // this.apiService.deletePost('kGW2bVZALfOLqBr6').then(console.warn);
+  handleDelete(id: string) {
+    this.apiService.deletePost(id).then(() => {
+      window.location.reload();
+    });
   }
 }
