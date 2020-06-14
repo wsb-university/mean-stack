@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { flipInX } from 'ng-animate';
 import { TextAnimation } from 'ngx-teximate';
+import { environment } from './../environments/environment';
 import { ApiStatusResponse } from './interfaces/ApiStatusResponse';
 
 @Component({
@@ -15,7 +16,7 @@ export class AppComponent {
 
   constructor(httpClient: HttpClient) {
     httpClient
-      .get('http://localhost:3000/api/status')
+      .get(`${environment.apiUrl}/api/status`)
       .toPromise()
       .then((data: ApiStatusResponse) => (this.status = data.status));
   }
