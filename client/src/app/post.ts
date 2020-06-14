@@ -2,7 +2,7 @@ type Post = {
   title: string;
   shortContent: string;
   longContent: string;
-  id: string;
+  _id?: string;
 };
 
 const postData: Array<Post> = [

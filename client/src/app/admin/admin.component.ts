@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../apiService';
 
 @Component({
   selector: 'app-admin',
@@ -10,15 +11,17 @@ export class AdminComponent implements OnInit {
   shortContent = '';
   longContent = '';
 
-  constructor() {}
+  constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {}
 
   handleSave() {
-    console.warn({
+    const doc = {
       title: this.title,
       shortContent: this.shortContent,
       longContent: this.longContent,
-    });
+    };
+
+    this.apiService.createPost(doc).then(console.warn);
   }
 }

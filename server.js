@@ -4,6 +4,9 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
+app.use(express.json()); // for parsing application/json
+app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
 const { Datastore } = require('nedb-async-await');
 
 const db = {};
@@ -144,8 +147,20 @@ app.get('/api/query', async (req, res) => {
 });
 
 // create post
-app.post('/api/posts', (req, res) => {
-  res.send('create post');
+app.post('/api/posts', async (req, res) => {
+  if (
+    req.body.title !== '' &&
+    req.body.shortContent !== '' &&
+    req.body.longContent !== ''
+  ) {
+    const doc = req.body;
+    doc.createdAt = Date.now();
+
+    const post = await db.posts.insert(doc);
+    res.json(post);
+  } else {
+    res.status(400).json({ error: 'Bad request.' });
+  }
 });
 
 // read post

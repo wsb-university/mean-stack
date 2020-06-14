@@ -25,4 +25,10 @@ export class ApiService {
       .get<Post>(`${environment.apiUrl}/api/posts/${id}`)
       .toPromise();
   }
+
+  createPost(doc: Post): Promise<Post> {
+    return this.httpClient
+      .post<Post>(`${environment.apiUrl}/api/posts`, doc)
+      .toPromise();
+  }
 }
