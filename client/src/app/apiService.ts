@@ -19,4 +19,10 @@ export class ApiService {
       .get<Array<Post>>(`${environment.apiUrl}/api/posts`)
       .toPromise();
   }
+
+  getSinglePost(id: string): Promise<Post> {
+    return this.httpClient
+      .get<Post>(`${environment.apiUrl}/api/posts/${id}`)
+      .toPromise();
+  }
 }

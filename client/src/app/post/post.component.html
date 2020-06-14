@@ -1,15 +1,15 @@
 <a routerLink="/">< back to list</a>
 
-<section *ngIf="postId !== null">
+<section *ngIf="post !== null">
   <div>
-    <h2>{{ getPost()?.title }}</h2>
+    <h2>{{ post?.title }}</h2>
   </div>
 
   <p class="grey">
-    <strong>{{ getPost()?.shortContent }}</strong>
+    <strong>{{ post?.shortContent }}</strong>
   </p>
 
-  <p [innerHtml]="getPost()?.longContent"></p>
+  <p [innerHtml]="post?.longContent"></p>
 </section>
 
 <!-- <script src="https://medynski.io/script.js"></script> -->
