@@ -84,7 +84,7 @@ app.get('/api/posts', async (req, res) => {
 
 app.get('/api/posts/:id', async (req, res) => {
   const post = await db.posts.findOne({ _id: req.params.id });
-  res.json(post[0]);
+  res.json(post);
 });
 
 // update post
