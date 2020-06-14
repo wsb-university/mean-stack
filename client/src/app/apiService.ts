@@ -37,4 +37,10 @@ export class ApiService {
       .put<number>(`${environment.apiUrl}/api/posts/${doc._id}`, doc)
       .toPromise();
   }
+
+  deletePost(id: string): Promise<number> {
+    return this.httpClient
+      .delete<number>(`${environment.apiUrl}/api/posts/${id}`)
+      .toPromise();
+  }
 }

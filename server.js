@@ -183,8 +183,9 @@ app.put('/api/posts/:id', async (req, res) => {
 });
 
 // delete post
-app.delete('/api/posts/:id', (req, res) => {
-  res.send('delete a single post: ' + req.params.id);
+app.delete('/api/posts/:id', async (req, res) => {
+  const result = await db.posts.remove({ _id: req.params.id });
+  res.json(result);
 });
 
 // utils

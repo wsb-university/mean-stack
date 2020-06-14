@@ -27,5 +27,8 @@ export class AdminComponent implements OnInit {
     // post update mock
     // doc._id = 'BlQdN8r9QezqhPl2';
     // this.apiService.updatePost(doc).then(console.warn);
+
+    // post delete mock
+    // this.apiService.deletePost('kGW2bVZALfOLqBr6').then(console.warn);
   }
 }
