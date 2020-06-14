@@ -148,18 +148,23 @@ app.get('/api/query', async (req, res) => {
 
 // create post
 app.post('/api/posts', async (req, res) => {
-  if (
-    req.body.title !== '' &&
-    req.body.shortContent !== '' &&
-    req.body.longContent !== ''
-  ) {
-    const doc = req.body;
-    doc.createdAt = Date.now();
-
-    const post = await db.posts.insert(doc);
-    res.json(post);
+  // authorization
+  if (req.headers.authorization !== `Basic YWRtaW46YWRtaW4=`) {
+    res.status(401).json({ error: `Unauthorized` });
   } else {
-    res.status(400).json({ error: 'Bad request.' });
+    if (
+      req.body.title !== '' &&
+      req.body.shortContent !== '' &&
+      req.body.longContent !== ''
+    ) {
+      const doc = req.body;
+      doc.createdAt = Date.now();
+
+      const post = await db.posts.insert(doc);
+      res.json(post);
+    } else {
+      res.status(400).json({ error: 'Bad request.' });
+    }
   }
 });
 

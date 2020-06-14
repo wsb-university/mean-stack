@@ -1,3 +1,4 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../apiService';
 
@@ -10,8 +11,11 @@ export class AdminComponent implements OnInit {
   title = '';
   shortContent = '';
   longContent = '';
+  accessToken = null;
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService) {
+    this.accessToken = localStorage.getItem('accessToken');
+  }
 
   ngOnInit(): void {}
 
@@ -22,7 +26,14 @@ export class AdminComponent implements OnInit {
       longContent: this.longContent,
     };
 
-    this.apiService.createPost(doc).then(console.warn);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Basic ${this.accessToken}`,
+      }),
+    };
+
+    this.apiService.createPost(doc, httpOptions).then(console.warn);
 
     // post update mock
     // doc._id = 'BlQdN8r9QezqhPl2';

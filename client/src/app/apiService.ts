@@ -26,9 +26,9 @@ export class ApiService {
       .toPromise();
   }
 
-  createPost(doc: Post): Promise<Post> {
+  createPost(doc: Post, httpOptions: any): Promise<any> {
     return this.httpClient
-      .post<Post>(`${environment.apiUrl}/api/posts`, doc)
+      .post<Post>(`${environment.apiUrl}/api/posts`, doc, httpOptions)
       .toPromise();
   }
 

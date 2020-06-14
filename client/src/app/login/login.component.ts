@@ -14,6 +14,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   handleLogin() {
-    console.warn({ email: this.email, password: this.password });
+    localStorage.setItem('accessToken', btoa(`${this.email}:${this.password}`));
   }
 }

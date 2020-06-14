@@ -1,6 +1,6 @@
-<!-- <app-login></app-login> -->
+<app-login *ngIf="!accessToken"></app-login>
 
-<section class="admin">
+<section *ngIf="accessToken" class="admin">
   <h3>Add post:</h3>
   <div>
     <label>Title</label>
