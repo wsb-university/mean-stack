@@ -8,6 +8,7 @@ import { TeximateModule } from 'ngx-teximate';
 import { AdminComponent } from './admin/admin.component';
 import { ApiService } from './apiService';
 import { AppComponent } from './app.component';
+import { CategoryComponent } from './category/category.component';
 import { LoginComponent } from './login/login.component';
 import { PostComponent } from './post/post.component';
 import { PostsComponent } from './posts/posts.component';
@@ -22,6 +23,10 @@ const routes: Routes = [
     component: PostComponent,
   },
   {
+    path: 'category/:id',
+    component: CategoryComponent,
+  },
+  {
     path: 'admin',
     component: AdminComponent,
   },
@@ -34,6 +39,7 @@ const routes: Routes = [
     PostComponent,
     AdminComponent,
     LoginComponent,
+    CategoryComponent,
   ],
   imports: [
     BrowserModule,

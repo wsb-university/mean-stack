@@ -11,7 +11,9 @@ export class AdminComponent implements OnInit {
   shortContent = '';
   longContent = '';
   accessToken = null;
+  categoryId = null;
   posts = [];
+  categories = [];
 
   constructor(private apiService: ApiService) {
     this.accessToken = localStorage.getItem('accessToken');
@@ -19,6 +21,9 @@ export class AdminComponent implements OnInit {
 
   ngOnInit(): void {
     this.apiService.getPosts().then((posts) => (this.posts = posts));
+    this.apiService
+      .getCategories()
+      .then((categories) => (this.categories = categories));
   }
 
   handleSave() {
@@ -26,6 +31,7 @@ export class AdminComponent implements OnInit {
       title: this.title,
       shortContent: this.shortContent,
       longContent: this.longContent,
+      categoryId: this.categoryId,
     };
 
     this.apiService.createPost(doc).then(() => window.location.reload());

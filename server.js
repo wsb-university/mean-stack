@@ -17,6 +17,11 @@ db.users = Datastore({
   autoload: true,
 });
 
+db.categories = Datastore({
+  filename: path.resolve(path.dirname(''), './database/categories.db'),
+  autoload: true,
+});
+
 if (process.env.ENV === 'dev') {
   const cors = require('cors');
   app.use(cors());
@@ -43,6 +48,45 @@ authMiddleware = async (req, res, next) => {
     next();
   }
 };
+
+app.get('/api/category/:id', async (req, res) => {
+  const categoryId = req.params.id;
+  const posts = await db.posts.find({ categoryId: categoryId });
+  res.json(posts);
+});
+
+app.get('/api/categories', async (req, res) => {
+  const categories = await db.categories.find({});
+  res.json(categories);
+});
+
+app.get('/api/db', async (req, res) => {
+  // db.categories.insert([{ title: 'Lifestyle' }, { title: 'Development' }]);
+  const post = await db.posts.findOne({ _id: '78lGj5TVxZH96rwQ' });
+  post.shortContent = 'Short content';
+  post.longContent = 'Long content';
+  post.categoryId = 'LDHkj8C3VpH5c7IJ';
+
+  // type Post = {
+  //   title: string;
+  //   shortContent: string;
+  //   longContent: string;
+  //   categoryId: string;
+  //   _id?: string;
+  // };
+
+  await db.posts.update({ _id: '78lGj5TVxZH96rwQ' }, post);
+
+  res.json(post);
+});
+
+app.get('/api/add-user', (req, res) => {
+  db.users.insert({
+    email: 'john@doe.com',
+    token: btoa('john@doe.com:password'),
+  });
+  res.send('ok');
+});
 
 app.post('/api/login', async (req, res) => {
   const { token } = req.body;

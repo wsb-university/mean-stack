@@ -8,11 +8,16 @@ import { ApiService } from '../apiService';
 })
 export class PostsComponent implements OnInit {
   data = null;
+  categories = [];
 
   constructor(apiService: ApiService) {
     apiService.getPosts().then((data) => {
       this.data = data;
     });
+
+    apiService
+      .getCategories()
+      .then((categories) => (this.categories = categories));
   }
 
   ngOnInit(): void {}
