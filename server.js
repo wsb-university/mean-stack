@@ -75,9 +75,60 @@ app.get('/api/db', async (req, res) => {
   //   _id?: string;
   // };
 
-  await db.posts.update({ _id: '78lGj5TVxZH96rwQ' }, post);
+  // await db.posts.update({ _id: '78lGj5TVxZH96rwQ' }, post);
 
-  res.json(post);
+  const result = await db.posts.update(
+    { _id: '78lGj5TVxZH96rwQ' },
+    { $set: { isInsideBasket: !post.isInsideBasket } }
+  );
+
+  const postNew = await db.posts.findOne({ _id: '78lGj5TVxZH96rwQ' });
+
+  res.json(postNew);
+});
+
+app.get('/api/posts/:id/add-to-basket', async (req, res) => {
+  const { id } = req.params;
+  if (id !== undefined) {
+    const result = await db.posts.update(
+      { _id: id },
+      { $set: { isInsideBasket: true } }
+    );
+
+    res.json(result);
+  } else {
+    res.status(400).json({ message: 'Bad request.' });
+  }
+});
+
+app.get('/api/posts/:id/remove-from-basket', async (req, res) => {
+  const { id } = req.params;
+  if (id !== undefined) {
+    const result = await db.posts.update(
+      { _id: id },
+      { $set: { isInsideBasket: false } }
+    );
+
+    res.json(result);
+  } else {
+    res.status(400).json({ message: 'Bad request.' });
+  }
+});
+
+app.get('/api/posts/:id/toggle-basket', async (req, res) => {
+  const { id } = req.params;
+  if (id !== undefined) {
+    const post = await db.posts.findOne({ _id: id });
+
+    const result = await db.posts.update(
+      { _id: id },
+      { $set: { isInsideBasket: !post.isInsideBasket } }
+    );
+
+    res.json(result);
+  } else {
+    res.status(400).json({ message: 'Bad request.' });
+  }
 });
 
 app.get('/api/add-user', (req, res) => {
