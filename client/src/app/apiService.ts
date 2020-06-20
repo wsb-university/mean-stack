@@ -68,4 +68,16 @@ export class ApiService {
       })
       .toPromise();
   }
+
+  getCategories(): Promise<Array<any>> {
+    return this.httpClient
+      .get<Array<any>>(`${environment.apiUrl}/api/categories`)
+      .toPromise();
+  }
+
+  getSingleCategory(id: string): Promise<Array<Post>> {
+    return this.httpClient
+      .get<Array<Post>>(`${environment.apiUrl}/api/category/${id}`)
+      .toPromise();
+  }
 }

@@ -9,6 +9,17 @@
     </div>
 
     <div>
+      <label>Category:</label>
+      <select [(ngModel)]="categoryId">
+        <option
+          *ngFor="let category of categories"
+          value="{{ category._id }}"
+          >{{ category.title }}</option
+        >
+      </select>
+    </div>
+
+    <div>
       <label>Short content</label>
       <textarea [(ngModel)]="shortContent"></textarea>
     </div>

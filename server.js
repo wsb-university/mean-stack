@@ -17,6 +17,11 @@ db.users = Datastore({
   autoload: true,
 });
 
+db.categories = Datastore({
+  filename: path.resolve(path.dirname(''), './database/categories.db'),
+  autoload: true,
+});
+
 if (process.env.ENV === 'dev') {
   const cors = require('cors');
   app.use(cors());
@@ -43,6 +48,102 @@ authMiddleware = async (req, res, next) => {
     next();
   }
 };
+
+app.get('/api/category/:id', async (req, res) => {
+  const categoryId = req.params.id;
+  const posts = await db.posts.find({ categoryId: categoryId });
+  res.json(posts);
+});
+
+app.get('/api/categories', async (req, res) => {
+  const categories = await db.categories.find({});
+  res.json(categories);
+});
+
+app.get('/api/db', async (req, res) => {
+  // db.categories.insert([{ title: 'Lifestyle' }, { title: 'Development' }]);
+  const post = await db.posts.findOne({ _id: '78lGj5TVxZH96rwQ' });
+  post.shortContent = 'Short content';
+  post.longContent = 'Long content';
+  post.categoryId = 'LDHkj8C3VpH5c7IJ';
+
+  // type Post = {
+  //   title: string;
+  //   shortContent: string;
+  //   longContent: string;
+  //   categoryId: string;
+  //   _id?: string;
+  // };
+
+  // await db.posts.update({ _id: '78lGj5TVxZH96rwQ' }, post);
+
+  const result = await db.posts.update(
+    { _id: '78lGj5TVxZH96rwQ' },
+    { $set: { isInsideBasket: !post.isInsideBasket } }
+  );
+
+  const postNew = await db.posts.findOne({ _id: '78lGj5TVxZH96rwQ' });
+
+  res.json(postNew);
+});
+
+app.get('/api/posts/:id/add-to-basket', async (req, res) => {
+  const { id } = req.params;
+  if (id !== undefined) {
+    const result = await db.posts.update(
+      { _id: id },
+      { $set: { isInsideBasket: true } }
+    );
+
+    res.json(result);
+  } else {
+    res.status(400).json({ message: 'Bad request.' });
+  }
+});
+
+app.get('/api/posts/:id/remove-from-basket', async (req, res) => {
+  const { id } = req.params;
+  if (id !== undefined) {
+    const result = await db.posts.update(
+      { _id: id },
+      { $set: { isInsideBasket: false } }
+    );
+
+    res.json(result);
+  } else {
+    res.status(400).json({ message: 'Bad request.' });
+  }
+});
+
+app.get('/api/posts/:id/toggle-basket', async (req, res) => {
+  const { id } = req.params;
+  if (id !== undefined) {
+    const post = await db.posts.findOne({ _id: id });
+
+    const result = await db.posts.update(
+      { _id: id },
+      { $set: { isInsideBasket: !post.isInsideBasket } }
+    );
+
+    res.json(result);
+  } else {
+    res.status(400).json({ message: 'Bad request.' });
+  }
+});
+
+app.get('/api/basket', async (req, res) => {
+  // [].filter(prod => prod.isInsideBasket);
+  const posts = await db.posts.find({ isInsideBasket: true });
+  res.json(posts);
+});
+
+app.get('/api/add-user', (req, res) => {
+  db.users.insert({
+    email: 'john@doe.com',
+    token: btoa('john@doe.com:password'),
+  });
+  res.send('ok');
+});
 
 app.post('/api/login', async (req, res) => {
   const { token } = req.body;

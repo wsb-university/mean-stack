@@ -1,10 +1,23 @@
-<section *ngFor="let post of data">
+<div class="columns">
   <div>
-    <h3>
-      <a routerLink="/post/{{ post._id }}">{{ post.title }}</a>
-    </h3>
+    <section *ngFor="let post of data">
+      <div>
+        <h3>
+          <a routerLink="/post/{{ post._id }}">{{ post.title }}</a>
+        </h3>
+      </div>
+      <div>
+        <strong>{{ post.shortContent }}</strong>
+      </div>
+    </section>
   </div>
-  <div>
-    <strong>{{ post.shortContent }}</strong>
+
+  <div class="categories">
+    <h4>Categories</h4>
+    <ul>
+      <li *ngFor="let category of categories">
+        <a routerLink="/category/{{ category._id }}">{{ category.title }}</a>
+      </li>
+    </ul>
   </div>
-</section>
+</div>
