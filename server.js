@@ -131,6 +131,12 @@ app.get('/api/posts/:id/toggle-basket', async (req, res) => {
   }
 });
 
+app.get('/api/basket', async (req, res) => {
+  // [].filter(prod => prod.isInsideBasket);
+  const posts = await db.posts.find({ isInsideBasket: true });
+  res.json(posts);
+});
+
 app.get('/api/add-user', (req, res) => {
   db.users.insert({
     email: 'john@doe.com',
